@@ -1,0 +1,12 @@
+<%- include('../partials/head.ejs') %>
+<div id="container">
+    <h1>Login User</h1>
+    <form action="/sessions" method="POST">
+        <input type="text" name="email" placeholder="Email Address" />
+        <input type="password" name="password" placeholder="Password" /> 
+        <input type="submit" value="Login" />
+    </form>
+    <p>Don't have an account?<a href="/users/register">Register.</a></p>
+    <a href="/products">Nevermind, I just want to browse...</a>
+</div>
+<%- include('../partials/foot.ejs') %>   

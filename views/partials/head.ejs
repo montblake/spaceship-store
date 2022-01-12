@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Intergalactic Transport</title>
+</head>
+<body>
+    <header>
+        <h1>Intergalactic Transport</h1>
+        <h2 class="italic">the finest ships in the multiverse</h2>
+        <nav>
+            <% if(currentUser){ %>
+                <p>Welcome, <%=currentUser.firstName[0].toUpperCase() + currentUser.firstName.slice(1,)%></p>
+                <div class="links">
+                    <a href="/">Home</a>
+                    <a href="/products">Inventory</a>
+                    <% if (currentUser.permissions !== 'admin'){ %>
+                        <a href="/users/<%=currentUser._id%>">Shopping Cart</a>
+                    <% } %>
+                    
+                    <form id="top-nav-link" action="/sessions/logout?_method=DELETE" method="POST">
+                        <input id="logoutButton" type="submit" value="Logout" />
+                    </form>
+                </div>
+                
+            <% } else { %>
+                <p>Hello, Spaceman</p>
+                <div class="">
+                    <a href="/">Home</a>
+                    <a href="/products">Inventory</a>
+                    <a href="/users/register">Register</a>
+                    <a href="/sessions/login">Login</a>
+                </div>
+            <% } %>
+
+        </nav>
+    </header>

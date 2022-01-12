@@ -1,0 +1,41 @@
+<%- include('./partials/head.ejs') %>
+<div id="container">
+    
+    <img id="product-image" src="<%=product.img%>" alt="<%=product.name%>"/>
+    
+    <div id="product-details">
+        <section id="product-highlights">
+            <h2><%=product.name%></h2>
+            <p class="key">Price</p>
+            <p class="value">$<%=product.price%></p>
+            <p class="key">Quantity Available</p>
+
+            
+
+            <% if(product.qty > 0){ %>
+                <p class="value"><%=product.qty%></p>
+            <% } else { %>
+                <p class="value">OUT OF STOCK</p>
+            <% } %>
+            <% if(currentUser){ %>
+                <% if(currentUser.permissions === 'admin'){ %> 
+                    <div id="admin-controls">
+                        <a id="admin-edit" href="/products/<%=product._id%>/edit">Edit Ship</a>
+                        <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
+                            <input id="admin-delete" type="submit" value="Delete Ship" />
+                        </form>
+                    </div>
+                <% } else { %>
+
+                    <form action="/products/<%=product._id%>/buy?_method=PUT" method="POST">
+                        <input id="buyButton" type="submit" value="add to cart"/>
+                    </form>
+                <% } %>
+            <% } %>            
+        </section>
+        <section id="product-description">
+            <p><%=product.description%></p>
+        </section>
+    </div>
+</div>
+<%- include('./partials/foot.ejs') %>    

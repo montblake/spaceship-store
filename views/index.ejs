@@ -1,0 +1,19 @@
+<%- include('./partials/head.ejs') %>
+<div id="container">
+    <h2>Inventory</h2>
+    <div id="product-index">
+        <% for(let i=0; i<products.length;i++){ %>
+            <a href="/products/<%=products[i]._id%>">
+                <div class="product-card">
+                    <img src="<%=products[i].img%>" />
+                    <div class="product-card-text"><p><%=products[i].name%></p></div>
+                    
+                </div>
+            </a>
+        <% } %>
+        </div>
+    <a href="/products/new">Add New Product</a>
+
+</div>
+ 
+<%- include('./partials/foot.ejs') %>    
