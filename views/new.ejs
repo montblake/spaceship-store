@@ -2,31 +2,24 @@
 <div id="container">
 
     <h2>New Product</h2>
-    <form action="/products" method="POST">
-        <fieldset>
+    <form id="reg-form" action="/products" method="POST">
+
             <label for="new_name">Name</label>
             <input type="text" name="name" id="new-name"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_description">Description</label>
             <input type="text" name="description" id="new-description"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_price">Price</label>
             <input type="number" name="price" id="new-price"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_qty">Quantity</label>
             <input type="number" name="qty" id="new-qty"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_img">Image</label>
             <input type="text" name="img" id="new-img"/>
-        </fieldset>
+
         <input type="submit" value="Add Product"/>
     </form>
-    
-    <a href="/products">Back to Product Index</a>
-</div>
  
 <%- include('./partials/foot.ejs') %>    

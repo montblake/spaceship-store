@@ -1,12 +1,41 @@
 <%- include('./partials/head.ejs') %>
 <div id="container">
     <h2>Inventory</h2>
+    <nav id="sort-method">
+        <% if(disabled === "ao"){ %>
+            <a  href="/products"><button id="alph" disabled>Alphabetical Order</button></a>
+        <% } else { %>
+            <a  href="/products"><button id="alph">Alphabetical Order</button></a>
+        <% } %>
+
+        <% if(disabled === "rao"){ %>
+            <a  href="/products?sort=rev"><button id="revAlph" disabled>Reverse Alphabetical Order</button></a>
+        <% } else { %>
+            <a  href="/products?sort=rev"><button id="revAlph">Reverse Alphabetical Order</button></a>
+        <% } %>
+
+        <% if(disabled === "plh"){ %>
+            <a href="/products?sort=price"><button id="price" disabled>Price: Low to High</button></a>
+        <% } else { %>
+            <a href="/products?sort=price"><button id="price" >Price: Low to High</button></a>
+        <% } %>
+
+        <% if(disabled === "phl"){ %>
+            <a href="/products?sort=price_rev"><button id="revPrice" disabled >Price: High to Low</button></a>
+        <% } else { %>
+            <a href="/products?sort=price_rev"><button id="revPrice" >Price: High to Low</button></a>
+        <% } %>        
+    </nav>
+    
     <div id="product-index">
         <% for(let i=0; i<products.length;i++){ %>
             <a href="/products/<%=products[i]._id%>">
                 <div class="product-card">
                     <img src="<%=products[i].img%>" />
-                    <div class="product-card-text"><p><%=products[i].name%></p></div>
+                    <div class="product-card-text">
+                        <p><%=products[i].name%></p>
+                        <p class="cost">$<%=products[i].price.toLocaleString()%></p>
+                    </div>
                     
                 </div>
             </a>
@@ -15,5 +44,4 @@
     <a href="/products/new">Add New Product</a>
 
 </div>
- 
 <%- include('./partials/foot.ejs') %>    

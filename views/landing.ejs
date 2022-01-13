@@ -8,11 +8,21 @@
     <title>Intergalactic Transport</title>
 </head>
 <body>
+    
     <div id="landing-container">
+        <div id="space-video">
+            <video autoplay muted loop height="100%">
+    
+                <source src="../images/4410830-preview.mp4"
+                        type="video/webm">
+            
+                Sorry, your browser doesn't support embedded videos.
+            </video>
+        </div>
         <header id="landing">
             <h1>Intergalactic Transport</h1>
             <h2 class="italic">the finest ships in the multiverse</h2>
-            <nav>
+            <nav id="user-nav">
                 <% if(currentUser){ %>
                     <p>Welcome Back, <%=currentUser.firstName[0].toUpperCase() + currentUser.firstName.slice(1,)%></p>
                     <div class="links">

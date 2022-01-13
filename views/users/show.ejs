@@ -1,29 +1,31 @@
 <%- include('../partials/head.ejs') %>
 <div id="container">
     <h2><%=currentUser.firstName%> <%=currentUser.lastName%>'s Shopping Cart</h2>
+
     <table>
         <thead>
             <th>Model</th>
-            <th>Quantity</th>
+            <th>Qty.</th>
             <th>Unit Price</th>
             <th>Total Price</th>
         </thead>
-        <tbody>
+        <tbody id="cart-entries">
         <% let total = 0; %>
         <% for(let i=0;i<user.shoppingCart.length;i++){ %>
             <tr>
-                <td><%=user.shoppingCart[i].name%></td>
-                <td>1</td>
-                <td><%=user.shoppingCart[i].price%></td>
-                <td><%=1 * user.shoppingCart[i].price%></td>
+                <td id="td-model"><%=user.shoppingCart[i].name%></td>
+                <td id="td-qty">1</td>
+                <td id="td-unit">$<%=user.shoppingCart[i].price.toLocaleString()%></td>
+                <td id="td-total">$<%=(1 * user.shoppingCart[i].price).toLocaleString()%></td>
             </tr>
             <% total += user.shoppingCart[i].price %>
         <% } %>
         </tbody>
         <tr>
             <td id="table-total" colspan="3">TOTAL:</td>
-            <td><%= total %></td>
+            <td>$<%= total.toLocaleString() %></td>
         </tr>
     </table>
 </div>
+<script src="../../js/cart.js"></script>
 <%- include('../partials/foot.ejs') %>    

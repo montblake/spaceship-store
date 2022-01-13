@@ -48,6 +48,7 @@ usersRouter.get('/:id', (req,res)=>{
     .populate('shoppingCart')
     .exec((err, user)=>{
         res.locals.currentUser = req.session.currentUser;
+        console.log(user)
         res.render('users/show.ejs', {user: user});
     });
 });

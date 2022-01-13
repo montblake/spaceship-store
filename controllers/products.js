@@ -1,5 +1,4 @@
 const express = require('express');
-const { append } = require('express/lib/response');
 const productsRouter = express.Router();
 
 const Product  = require('../models/product');
@@ -23,11 +22,26 @@ const isAuthenticated = (req, res, next) => {
 // =========================================================
 // INDEX
 productsRouter.get('/', (req,res)=>{
-    res.locals.currentUser = req.session.currentUser
-    Product.find({}, (err, foundProducts)=>{
-        
-        res.render('index.ejs', {products: foundProducts});
-    });
+    res.locals.currentUser = req.session.currentUser;
+    if (req.query.sort) {
+        if (req.query.sort === 'rev'){
+            Product.find({}).sort({name:-1}).exec((err, foundProducts)=>{
+                res.render('index.ejs', {products: foundProducts, disabled: "rao"});
+            });
+        } else if (req.query.sort === 'price'){
+            Product.find({}).sort({price:1}).exec((err, foundProducts)=>{
+                res.render('index.ejs', {products: foundProducts, disabled: "plh"});
+            });
+        } else if (req.query.sort === 'price_rev'){
+            Product.find({}).sort({price:-1}).exec((err, foundProducts)=>{
+                res.render('index.ejs', {products: foundProducts, disabled: "phl"});
+            });
+        }
+    } else {
+        Product.find({}).sort({name:1}).exec((err, foundProducts)=>{
+            res.render('index.ejs', {products: foundProducts, disabled: "ao"});
+        });
+    }
 });
 
 
@@ -54,7 +68,10 @@ productsRouter.put('/:id/buy', isAuthenticated, (req, res) => {
         foundProduct.qty -= 1;
         foundProduct.save();
         User.findById(req.session.currentUser._id, (err, foundUser) => {
-            foundUser.shoppingCart.push(foundProduct._id);
+            const cart = foundUser.shoppingCart;
+            console.log(cart);
+            cart.push(req.params.id);
+            console.log(cart);
             foundUser.save();
             res.render('show.ejs', {product: foundProduct});
         });

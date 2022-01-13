@@ -1,12 +1,19 @@
 <%- include('../partials/head.ejs') %>
 <div id="container">
-    <h1>Login User</h1>
-    <form action="/sessions" method="POST">
-        <input type="text" name="email" placeholder="Email Address" />
-        <input type="password" name="password" placeholder="Password" /> 
+    <h2>Login User</h2>
+
+    <form id="reg-form" action="/sessions" method="POST">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" /> 
+
         <input type="submit" value="Login" />
     </form>
-    <p>Don't have an account?<a href="/users/register">Register.</a></p>
-    <a href="/products">Nevermind, I just want to browse...</a>
+
+
+    <p class="tag-line">Don't have an account? <a class="tag-link" href="/users/register">Register</a>.</p>
+
 </div>
 <%- include('../partials/foot.ejs') %>   

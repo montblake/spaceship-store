@@ -1,27 +1,23 @@
 <%- include('./partials/head.ejs') %>
 <div id="container">
     <h2>Edit Product</h2>
-    <form action="/products/<%=product._id%>?_method=PUT" method="POST">
-        <fieldset>
+    <form id="reg-form" action="/products/<%=product._id%>?_method=PUT" method="POST">
+
             <label for="new_name">Name</label>
             <input type="text" name="name" id="new-name" value="<%=product.name%>"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_description">Description</label>
             <input type="text" name="description" id="new-description" value="<%=product.description%>"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_price">Price</label>
             <input type="number" name="price" id="new-price" value="<%=product.price%>"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_qty">Quantity</label>
             <input type="number" name="qty" id="new-qty" value="<%=product.qty%>"/>
-        </fieldset>
-        <fieldset>
+
             <label for="new_img">Image</label>
             <input type="text" name="img" id="new-img" value="<%=product.img%>"/>
-        </fieldset>
+ 
         <input type="submit" value="Update Product"/>
     </form>
     
