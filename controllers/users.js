@@ -48,10 +48,32 @@ usersRouter.get('/:id', (req,res)=>{
     .populate('shoppingCart')
     .exec((err, user)=>{
         res.locals.currentUser = req.session.currentUser;
-        console.log(user)
-        res.render('users/show.ejs', {user: user});
+        console.log(user.shoppingCart)
+
+        const cart = {}
+        
+        for (let i = 0; i < user.shoppingCart.length; i++){
+            console.log(Object.keys(cart));
+            if (Object.keys(cart).includes(user.shoppingCart[i].name)){
+                cart[user.shoppingCart[i].name].quantity += 1;
+
+            } else {
+                cart[user.shoppingCart[i].name] = {_id: user.shoppingCart[i]._id, name: user.shoppingCart[i].name, price: user.shoppingCart[i].price, quantity: 1}
+            }
+        };
+        // res.send(cart)
+        res.render('users/show.ejs', {user: user, cart: cart});
     });
 });
+
+usersRouter.get('/:id/edit', (req,res)=>{
+    User.findById(req.params.id)
+    .populate('shoppingCart')
+    .exec((err, user)=>{
+        res.locals.currentUser = req.session.currentUser;
+        res.render('users/edit.ejs', {user: user});
+    });
+})
 
 
 module.exports = usersRouter;

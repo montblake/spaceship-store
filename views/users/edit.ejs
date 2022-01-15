@@ -1,7 +1,7 @@
 <%- include('../partials/head.ejs') %>
 <div id="container">
     <h2><%=currentUser.firstName%> <%=currentUser.lastName%>'s Shopping Cart</h2>
-
+    <form action="" method="POST" id="shopping-form">
     <table>
         <thead>
             <th>Model</th>
@@ -11,17 +11,14 @@
         </thead>
         <tbody id="cart-entries">
         <% let total = 0; %>
-        <%  const cartKeys = Object.keys(cart) %>
-        
-        <% for(let i=0;i<cartKeys.length;i++){ %>
+        <% for(let i=0;i<user.shoppingCart.length;i++){ %>
             <tr>
-                <td id="td-model"><%=cart[cartKeys[i]].name%></td>
-                <td id="td-qty"><%=cart[cartKeys[i]].quantity%></td>
-                <td id="td-unit">$<%=cart[cartKeys[i]].price.toLocaleString()%></td>
-                <% let subTotal = (cart[cartKeys[i]].quantity * cart[cartKeys[i]].price) %>
-                <td id="td-total">$<%=subTotal.toLocaleString()%></td>
+                <td id="td-model"><%=user.shoppingCart[i].name%></td>
+                <td id="td-qty"><input type="number" name="qty" value="<%=user.shoppingCart[i].qty%>" /></td>
+                <td id="td-unit">$<%=user.shoppingCart[i].price.toLocaleString()%></td>
+                <td id="td-total">$<%=(1 * user.shoppingCart[i].price).toLocaleString()%></td>
             </tr>
-            <% total += subTotal %>
+            <% total += user.shoppingCart[i].price %>
         <% } %>
         </tbody>
         <tr>
@@ -29,6 +26,9 @@
             <td>$<%= total.toLocaleString() %></td>
         </tr>
     </table>
+        <input type="submit" value="Update Cart"/>
+    </form>
+  
 </div>
 <script src="../../js/cart.js"></script>
 <%- include('../partials/foot.ejs') %>    
