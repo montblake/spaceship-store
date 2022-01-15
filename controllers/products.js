@@ -40,7 +40,7 @@ productsRouter.get('/', (req,res)=>{
     } else {
         Product.find({}).sort({name:1}).exec((err, foundProducts)=>{
             res.render('index.ejs', {products: foundProducts, disabled: "ao"});
-        });
+        })
     }
 });
 
