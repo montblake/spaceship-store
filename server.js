@@ -51,6 +51,10 @@ app.get('/', (req,res)=>{
     res.render('landing.ejs');
 });
 
+app.get('/spacebattle', (req,res)=>{
+    res.render('spacebattle/spacebattle.ejs');
+})
+
 // PRODUCTS CONTROLLER
 const productsController = require('./controllers/products');
 app.use('/products', productsController);
