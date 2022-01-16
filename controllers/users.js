@@ -53,7 +53,6 @@ usersRouter.get('/:id', (req,res)=>{
         const cart = {}
         
         for (let i = 0; i < user.shoppingCart.length; i++){
-            console.log(Object.keys(cart));
             if (Object.keys(cart).includes(user.shoppingCart[i].name)){
                 cart[user.shoppingCart[i].name].quantity += 1;
 
