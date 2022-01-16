@@ -27,7 +27,7 @@
                     </div>
                 <% } else { %>
 
-                    <form action="/products/<%=product._id%>/buy?_method=PUT" method="POST">
+                    <form action="/products/<%=product._id%>/cart?_method=PUT" method="POST">
                         <input id="buyButton" type="submit" value="add to cart"/>
                     </form>
                 <% } %>

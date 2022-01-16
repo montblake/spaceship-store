@@ -1,13 +1,18 @@
+// =========================================================
+// ====================  DEPENDENCIES  =====================
+// =========================================================
 const express = require('express');
 const productsRouter = express.Router();
 
+// models
 const Product  = require('../models/product');
-const productSeed = require('../models/productSeed');
-
 const User = require('../models/user');
 
 
-// Auth Middleware
+// =========================================================
+// ====================  Middleware  =====================
+// =========================================================
+// Function for Authentication
 const isAuthenticated = (req, res, next) => {
     if (req.session.currentUser) {
         return next();
@@ -20,24 +25,33 @@ const isAuthenticated = (req, res, next) => {
 // =========================================================
 // ====================  ROUTES  ===========================
 // =========================================================
+// All routes begin with '/products'
+
 // INDEX
+// this page can be viewed regardless of login status
 productsRouter.get('/', (req,res)=>{
     res.locals.currentUser = req.session.currentUser;
+    // Check if there is a query string indicating non-standard sorting
     if (req.query.sort) {
         if (req.query.sort === 'rev'){
+             // Sort Results into Reverse Alphabetical Order
             Product.find({}).sort({name:-1}).exec((err, foundProducts)=>{
                 res.render('index.ejs', {products: foundProducts, disabled: "rao"});
             });
+     
         } else if (req.query.sort === 'price'){
+            // Sort Results into Price: Low to High
             Product.find({}).sort({price:1}).exec((err, foundProducts)=>{
                 res.render('index.ejs', {products: foundProducts, disabled: "plh"});
             });
         } else if (req.query.sort === 'price_rev'){
+            // Sort Results into Price: High to Low
             Product.find({}).sort({price:-1}).exec((err, foundProducts)=>{
                 res.render('index.ejs', {products: foundProducts, disabled: "phl"});
             });
         }
     } else {
+        // Standard route to show products in alphabetical order
         Product.find({}).sort({name:1}).exec((err, foundProducts)=>{
             res.render('index.ejs', {products: foundProducts, disabled: "ao"});
         })
@@ -60,18 +74,17 @@ productsRouter.delete('/:id', isAuthenticated, (req,res)=>{
 });
 
 
-// ADD TO CART / BUY
-productsRouter.put('/:id/buy', isAuthenticated, (req, res) => {
+// ADD TO CART
+productsRouter.put('/:id/cart', isAuthenticated, (req, res) => {
     res.locals.currentUser = req.session.currentUser;
     Product.findById(req.params.id, (error, foundProduct) => {
-        console.log(foundProduct);
+        // Adjust quantity of Products available 
         foundProduct.qty -= 1;
         foundProduct.save();
+        // Add Product to the appropriate User's Shopping Cart
         User.findById(req.session.currentUser._id, (err, foundUser) => {
             const cart = foundUser.shoppingCart;
-            console.log(cart);
             cart.push(req.params.id);
-            console.log(cart);
             foundUser.save();
             res.render('show.ejs', {product: foundProduct});
         });
@@ -119,6 +132,7 @@ productsRouter.get('/:id/edit', isAuthenticated, (req,res)=>{
 
 
 // SHOW
+// this page can be viewed regardless of login status
 productsRouter.get('/:id', (req, res)=>{
     res.locals.currentUser = req.session.currentUser;
     Product.findById(req.params.id, (error, foundProduct)=>{
