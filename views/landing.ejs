@@ -27,6 +27,7 @@
                     <p>Welcome Back, <%=currentUser.firstName[0].toUpperCase() + currentUser.firstName.slice(1,)%></p>
                     <div class="links">
                         <a href="/products">Inventory</a>
+                        <a href="/spacebattle">SpaceBattle</a>
                         <% if (currentUser.permissions !== 'admin'){ %>
                             <a href="/users/<%=currentUser._id%>">Shopping Cart</a>
                         <% } %>
@@ -40,7 +41,8 @@
                     <div class="links">
                         <a href="/users/register">Register</a>
                         <a href="/sessions/login">Login</a>
-                        <a href="/products">Browse</a>
+                        <a href="/products">Inventory</a>
+                        <a href="/spacebattle">SpaceBattle</a>
                     </div>
                     
                 <% } %>
