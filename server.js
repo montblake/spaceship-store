@@ -5,10 +5,10 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const express = require('express');
 
-// Require Models
+// Models
 const Product = require('./models/product');
 
-// Import Environment Variables
+// Environment Variables
 require('dotenv').config();
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
