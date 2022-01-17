@@ -1,12 +1,21 @@
+// ==========================================================================
+// =====================  DEPENDENCIES  =====================================
+// ==========================================================================
 const bcrypt = require('bcrypt');
 const express = require('express');
 const sessionsRouter = express.Router();
 const User = require('../models/user');
 
+
+// ==========================================================================
+// ===========================  ROUTES  =====================================
+// ==========================================================================
+// LOGIN (New Session)
 sessionsRouter.get('/login', (req, res)=>{
     res.render('sessions/login.ejs', { currentUser: req.session.currentUser });
 });
 
+// LOGIN (Create Session)
 sessionsRouter.post('/', (req, res) => {
     User.findOne({ email: req.body.email}, (err, foundUser) => {
         if (err) {
@@ -26,7 +35,7 @@ sessionsRouter.post('/', (req, res) => {
     });
 });
 
-
+// LOGOUT (Delete Session)
 sessionsRouter.delete('/logout', (req, res)=>{
     req.session.destroy(()=>{
         res.redirect('/products');
