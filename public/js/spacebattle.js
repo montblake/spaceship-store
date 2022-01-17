@@ -8,13 +8,26 @@ class Spaceship {
         // this.firepower = firepower || (Math.floor(Math.random() * 3) + 2);
         // this.accuracy = accuracy || ((Math.floor(Math.random() * 4) + 5) / 10);
         this.weapons = [
-            {name: "Needler", accuracy: .8, firepower: 3}, 
-            {name: "Laser Cannon", accuracy: .4, firepower: 8},
+            {name: "Needler", accuracy: .8, firepower: 2}, 
+            {name: "Laser Cannon", accuracy: .5, firepower: 6},
+            {name: "Guided Missile", accuracy: .66, firepower: 4},
             {name: "Disintigration Ray", accuracy: .1, firepower: 100},
         ];
     }
 
-    attack(target) {
+    attackByChoice(target) {
+        let weapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
+        message += `\n${this.name} fires ${weapon.name}! `;
+        if (Math.random() < weapon.accuracy) {
+            message += `\n${this.name} hits ${target.name}!`;
+            target.hull -= weapon.firepower;
+            
+        } else {
+            message += `\nBad aim. ${this.name} misses ${target.name}!`;
+        }
+    }
+
+    attackByRandom(target) {
         let weapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
         message += `\n${this.name} fires ${weapon.name}! `;
         if (Math.random() < weapon.accuracy) {
@@ -36,11 +49,6 @@ for (let i = 0; i < numAlienShips; i++){
     alienFleet.push(alienShip);
 }
 
-// console.log(ussAnemone.name);
-// console.log(ussAnemone.hull);
-// console.log(ussAnemone.firepower);
-// console.log(ussAnemone.accuracy);
-// console.log(alienFleet)
 
 ////////////////////// DOM ELEMENTS /////////////////////////
 const warReport = document.querySelector('#warReport');
@@ -131,9 +139,9 @@ function battleExchange(){
     report(message);
     if (gameOver) {
         if (ussAnemone.hull <= 0) {
-            message = 'The aliens are victorious. Mankind is doomed.';
+            message += '\nThe aliens are victorious. Mankind is doomed.';
         } else {
-            message = 'The aliens are defeated. Mankind is saved.';
+            message += '\nThe aliens are defeated. Mankind is saved.';
         }
         report(message);
     }
