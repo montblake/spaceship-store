@@ -6,6 +6,7 @@ Incorporates two models: Products and Users. A simplified inventory/shopping car
 Additionally, the app links to a text-based browser game called SpaceBattle (on the home page). Eventually the storefront will evolve to tie directly into the game.
 
 The app is read only for an unregistered guest. A logged in user can add products to their shopping cart (changing the inventory numbers) and view the cart. To add or edit products, you must be logged in with admin privileges. To explore the app as a registered user, you can make your own account or you could use:
+<br/>
 __sample user__<br/>
 email: guest@guest.com<br/>
 password: guest
