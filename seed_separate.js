@@ -14,6 +14,7 @@ const productSeed = require('./models/productSeed');
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
 
+
 // Database Connection
 const mongoose = require('mongoose');
 
