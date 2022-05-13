@@ -1,5 +1,5 @@
 # Intergalactic Transport
-[OPEN DEPLOYED APP](https://intergalactic-transport.herokuapp.com)
+[DEPLOYED APP: https://intergalactic-transport.herokuapp.com](https://intergalactic-transport.herokuapp.com)
 <br />Note: The project is hosted on Heroku and may take a few seconds to wake the server.
 <hr /><br />
 
